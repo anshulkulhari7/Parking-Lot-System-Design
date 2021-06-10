@@ -1,28 +1,22 @@
-import java.sql.Timestamp;
-import java.time.LocalDateTime;
+public abstract class ParkingSpot {
+    private String number;
+    private boolean free;
+    private Vehicle vehicle;
+    private final ParkingSpotType type;
 
-public class ParkingSpot {
-    public String id;
-    public int num;
-    public Type spotType;
-    public boolean isFree;
-    public Vehicle vehicle;
+    public boolean IsFree();
 
-    public boolean isSpotFree(){
-        return this.isFree;
-    }
-    public void removeVehicle(){
-        this.isFree=true;
+    public ParkingSpot(ParkingSpotType type) {
+        this.type = type;
     }
 
-    public Ticket assignVehicleToSpot(Vehicle vehicle){
-        Timestamp timestamp=new Timestamp(System.currentTimeMillis());
-        Ticket ticket=new Ticket(Double.toString(Math.random()),vehicle,timestamp.getTime(), LocalDateTime.now());
-        this.vehicle=vehicle;
-        this.isFree=false;
-        return ticket;
+    public boolean assignVehicle(Vehicle vehicle) {
+        this.vehicle = vehicle;
+        free = false;
     }
 
+    public boolean removeVehicle() {
+        this.vehicle = null;
+        free = true;
+    }
 }
-
-
